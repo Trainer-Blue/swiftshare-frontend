@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Quill Editor Custom Styles */
+.ql-container {
+  font-size: 16px;
+  min-height: 384px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.ql-editor {
+  padding: 32px;
+  min-height: 384px;
+}
+
+.ql-toolbar {
+  background: rgb(255 251 235);
+  border: 0;
+  border-bottom: 2px solid rgb(253 230 138);
+  padding: 16px 32px;
+}
+
+.ql-toolbar .ql-stroke {
+  stroke: #8b4513;
+}
+
+.ql-toolbar .ql-fill {
+  fill: #8b4513;
+}
+
+.ql-toolbar button:hover .ql-stroke,
+.ql-toolbar button:focus .ql-stroke,
+.ql-toolbar button.ql-active .ql-stroke {
+  stroke: #d97706;
+}
+
+.ql-toolbar button:hover .ql-fill,
+.ql-toolbar button:focus .ql-fill,
+.ql-toolbar button.ql-active .ql-fill {
+  fill: #d97706;
+}
+
+.ql-editor.ql-blank::before {
+  color: rgb(245 158 11);
+  font-style: italic;
+}
