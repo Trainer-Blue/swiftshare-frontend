@@ -36,7 +36,11 @@ const Editor = ({ roomId }) => {
 
     // Yjs setup with dynamic room ID from URL
     const ydoc = new Y.Doc();
+
     const wsUrl = import.meta.env.VITE_WS_URL || "ws://localhost:1234";
+
+    console.log("Connecting to WebSocket server");
+
     const provider = new WebsocketProvider(
       wsUrl,
       roomId || "room-0", // Use roomId from props or default
