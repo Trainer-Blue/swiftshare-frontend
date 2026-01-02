@@ -81,8 +81,8 @@ body {
   padding: 12px !important;
   margin-bottom: 24px;
   position: sticky;
-  top: 0;
-  z-index: 10;
+  top: 100px; /* Adjusted to clear the floating header (top-6 + header height) */
+  z-index: 40; /* Lower than header (z-50) but high enough */
   backdrop-filter: blur(8px);
   @apply transition-colors duration-300;
 }
