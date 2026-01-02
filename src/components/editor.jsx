@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useStatus } from "../context/StatusContext";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
@@ -10,6 +11,8 @@ import { WebsocketProvider } from "y-websocket";
 const Editor = ({ roomId }) => {
   const containerRef = useRef(null);
   const quillRef = useRef(null);
+
+  const { setStatus } = useStatus();
 
   useEffect(() => {
     if (!containerRef.current || quillRef.current) return;
@@ -34,6 +37,10 @@ const Editor = ({ roomId }) => {
       },
     });
 
+    // Disable editor initially
+    quillRef.current.enable(false);
+    setStatus("connecting");
+
     // Yjs setup with dynamic room ID from URL
     const ydoc = new Y.Doc();
 
@@ -46,6 +53,40 @@ const Editor = ({ roomId }) => {
       roomId || "room-0", // Use roomId from props or default
       ydoc
     );
+
+    let connectionAttempts = 0;
+
+    provider.on("status", (event) => {
+      console.log("WebSocket status:", event.status);
+      if (event.status === "connected") {
+        connectionAttempts = 0;
+        // Wait for sync to enable editor
+      } else if (event.status === "connecting") {
+        connectionAttempts++;
+        console.log(`Connection attempt ${connectionAttempts}/5`);
+        if (connectionAttempts > 5) {
+          // destroy() completely stops the provider and removes all event listeners
+          provider.destroy(); 
+          setStatus("error");
+          console.error("Connection failed after 5 attempts. Provider destroyed.");
+          return;
+        }
+        setStatus(event.status);
+        quillRef.current?.enable(false);
+      } else {
+        setStatus(event.status); // 'disconnected'
+        quillRef.current?.enable(false);
+      }
+    });
+
+    provider.on("synced", (isSynced) => {
+      console.log("Synced:", isSynced);
+      if (isSynced) {
+        setStatus("connected");
+        quillRef.current?.enable(true);
+      }
+    });
+
     const ytext = ydoc.getText("quill");
     const binding = new QuillBinding(ytext, quillRef.current);
 
@@ -56,8 +97,9 @@ const Editor = ({ roomId }) => {
         container.innerHTML = "";
       }
       quillRef.current = null;
+      setStatus("disconnected");
     };
-  }, [roomId]); // Re-connect if roomId changes
+  }, [roomId, setStatus]); // Re-connect if roomId changes
 
   return <div ref={containerRef}></div>;
 };

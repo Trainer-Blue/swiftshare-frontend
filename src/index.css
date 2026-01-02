@@ -1,53 +1,147 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Premium Minimalist Palette */
+  --color-bg-light: #faf9f6; /* Warm Sand */
+  --color-bg-dark: #1c1917; /* Warm Black */
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #292524; /* Stone 800 */
+  --color-primary: #ea580c; /* Burnt Orange */
+  --color-text-light: #44403c; /* Stone 700 */
+  --color-text-dark: #e7e5e4; /* Stone 200 */
+  --color-border-light: #d6d3d1; /* Stone 300 - Darker than before */
+  --color-border-dark: #44403c;
+}
+
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-light);
+  color: var(--color-text-light);
+  @apply transition-colors duration-500 ease-in-out;
 }
 
-/* Quill Editor Custom Styles */
+/* Dark mode global styles */
+.dark body {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-dark);
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-light);
+}
+
+.dark .glass {
+  background: rgba(28, 25, 23, 0.7); /* Warm Black with opacity */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Quill Editor Custom Styles - Minimalist Strip */
 .ql-container {
-  font-size: 16px;
-  min-height: 384px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px; /* Slightly larger for readability */
+  min-height: 60vh;
+  font-family: "Inter", sans-serif; /* Modern font instead of Serif */
+  line-height: 1.8;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.dark .ql-container {
+  border-color: var(--color-border-dark) !important;
 }
 
 .ql-editor {
-  padding: 32px;
-  min-height: 384px;
+  padding: 40px; /* Added horizontal padding since we have a border now */
+  max-width: 800px; /* Optimal reading width */
+  margin: 0 auto;
+  color: var(--color-text-light);
+}
+
+.dark .ql-editor {
+  color: var(--color-text-dark);
 }
 
 .ql-toolbar {
-  background: rgb(255 251 235);
-  border: 0;
-  border-bottom: 2px solid rgb(253 230 138);
-  padding: 16px 32px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  background: transparent !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: 12px;
+  padding: 12px !important;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  @apply transition-colors duration-300;
+}
+
+.dark .ql-toolbar {
+  border-color: var(--color-border-dark) !important;
+}
+
+/* Toolbar Buttons - Icon Only Style */
+.ql-toolbar button {
+  border-radius: 8px !important;
+  transition: all 0.2s ease;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.ql-toolbar button:hover {
+  background-color: rgba(234, 88, 12, 0.1) !important; /* Primary color tint */
+}
+
+.ql-toolbar button.ql-active {
+  background-color: rgba(234, 88, 12, 0.15) !important;
+  color: var(--color-primary) !important;
 }
 
 .ql-toolbar .ql-stroke {
-  stroke: #8b4513;
+  stroke: var(--color-text-light) !important;
+  stroke-width: 1.5 !important;
 }
 
 .ql-toolbar .ql-fill {
-  fill: #8b4513;
+  fill: var(--color-text-light) !important;
 }
 
 .ql-toolbar button:hover .ql-stroke,
-.ql-toolbar button:focus .ql-stroke,
 .ql-toolbar button.ql-active .ql-stroke {
-  stroke: #d97706;
+  stroke: var(--color-primary) !important;
 }
 
 .ql-toolbar button:hover .ql-fill,
-.ql-toolbar button:focus .ql-fill,
 .ql-toolbar button.ql-active .ql-fill {
-  fill: #d97706;
+  fill: var(--color-primary) !important;
+}
+
+/* Dark Mode Toolbar Icons */
+.dark .ql-toolbar .ql-stroke {
+  stroke: var(--color-text-dark) !important;
+}
+
+.dark .ql-toolbar .ql-fill {
+  fill: var(--color-text-dark) !important;
 }
 
 .ql-editor.ql-blank::before {
-  color: rgb(245 158 11);
-  font-style: italic;
+  color: #a8a29e; /* Stone 400 */
+  font-style: normal;
+  left: 0; /* Align with text */
+}
+
+.dark .ql-editor.ql-blank::before {
+  color: #57534e; /* Stone 600 */
 }

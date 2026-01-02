@@ -7,15 +7,19 @@ function EditorPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-50 to-orange-50 p-10">
-      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl shadow-orange-200/50 overflow-hidden">
-        <div className="bg-linear-to-r from-orange-600 to-amber-600 px-8 py-6 flex items-center justify-between">
+    <div className="min-h-screen relative">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-orange-500/5 to-transparent pointer-events-none" />
+
+      {/* Floating Header */}
+      <div className="sticky top-6 z-50 px-6 mb-12">
+        <div className="max-w-4xl mx-auto glass rounded-2xl px-6 py-4 flex items-center justify-between shadow-lg shadow-black/5 dark:shadow-black/20">
           <button
             onClick={() => navigate("/")}
-            className="text-amber-50 hover:text-white transition-colors"
+            className="p-2 rounded-lg hover:bg-[var(--color-bg-light)] dark:hover:bg-[var(--color-bg-dark)] text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] transition-colors opacity-70 hover:opacity-100"
           >
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -28,12 +32,23 @@ function EditorPage() {
               />
             </svg>
           </button>
-          <h1 className="text-center font-bold text-2xl text-amber-50 tracking-tight">
-            Room: {roomId}
-          </h1>
-          <div className="w-6"></div>
+          
+          <div className="flex flex-col items-center">
+             <h1 className="text-sm font-medium tracking-wide text-[var(--color-text-light)] dark:text-[var(--color-text-dark)]">
+              {roomId}
+            </h1>
+            <span className="text-[10px] uppercase tracking-widest opacity-40 font-bold">Document</span>
+          </div>
+
+          <div className="w-9"></div> {/* Spacer for balance */}
         </div>
-        <Editor roomId={roomId} />
+      </div>
+
+      {/* Editor Container */}
+      <div className="max-w-4xl mx-auto px-6 pb-20">
+        <div className="min-h-[80vh]">
+          <Editor roomId={roomId} />
+        </div>
       </div>
     </div>
   );
