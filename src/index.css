@@ -67,12 +67,20 @@ body {
   color: var(--color-text-light);
 }
 
+/* Mobile: Reduce editor padding */
+@media (max-width: 768px) {
+  .ql-editor {
+    padding: 20px;
+  }
+}
+
 .dark .ql-editor {
   color: var(--color-text-dark);
 }
 
 .ql-toolbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
   background: transparent !important;
@@ -87,6 +95,15 @@ body {
   @apply transition-colors duration-300;
 }
 
+/* Mobile responsive toolbar */
+@media (max-width: 768px) {
+  .ql-toolbar {
+    gap: 4px;
+    padding: 8px !important;
+    top: 70px; /* Adjust for smaller header on mobile */
+  }
+}
+
 .dark .ql-toolbar {
   border-color: var(--color-border-dark) !important;
 }
@@ -97,6 +114,15 @@ body {
   transition: all 0.2s ease;
   width: 32px !important;
   height: 32px !important;
+  flex-shrink: 0;
+}
+
+/* Mobile: Smaller buttons */
+@media (max-width: 768px) {
+  .ql-toolbar button {
+    width: 28px !important;
+    height: 28px !important;
+  }
 }
 
 .ql-toolbar button:hover {

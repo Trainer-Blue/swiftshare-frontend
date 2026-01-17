@@ -1,4 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { useStatus } from "../context/StatusContext";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
@@ -8,11 +13,16 @@ import * as Y from "yjs";
 import { QuillBinding } from "y-quill";
 import { WebsocketProvider } from "y-websocket";
 
-const Editor = ({ roomId }) => {
+const Editor = forwardRef(({ roomId }, ref) => {
   const containerRef = useRef(null);
   const quillRef = useRef(null);
 
   const { setStatus } = useStatus();
+
+  // Expose getText method to parent
+  useImperativeHandle(ref, () => ({
+    getText: () => quillRef.current?.getText() || "",
+  }));
 
   useEffect(() => {
     if (!containerRef.current || quillRef.current) return;
@@ -66,9 +76,11 @@ const Editor = ({ roomId }) => {
         console.log(`Connection attempt ${connectionAttempts}/5`);
         if (connectionAttempts > 5) {
           // destroy() completely stops the provider and removes all event listeners
-          provider.destroy(); 
+          provider.destroy();
           setStatus("error");
-          console.error("Connection failed after 5 attempts. Provider destroyed.");
+          console.error(
+            "Connection failed after 5 attempts. Provider destroyed."
+          );
           return;
         }
         setStatus(event.status);
@@ -102,6 +114,8 @@ const Editor = ({ roomId }) => {
   }, [roomId, setStatus]); // Re-connect if roomId changes
 
   return <div ref={containerRef}></div>;
-};
+});
+
+Editor.displayName = "Editor";
 
 export default Editor;

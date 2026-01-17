@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Editor from "./editor";
 
 function EditorPage() {
   const { roomId } = useParams();
   const navigate = useNavigate();
+  const editorRef = useRef();
+
+  const handleDownload = () => {
+    const text = editorRef.current?.getText();
+    if (!text) return;
+
+    const blob = new Blob([text], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${roomId || "document"}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -32,22 +48,42 @@ function EditorPage() {
               />
             </svg>
           </button>
-          
+
           <div className="flex flex-col items-center">
-             <h1 className="text-sm font-medium tracking-wide text-(--color-text-light) dark:text-(--color-text-dark)">
+            <h1 className="text-sm font-medium tracking-wide text-(--color-text-light) dark:text-(--color-text-dark)">
               {roomId}
             </h1>
-            <span className="text-[10px] uppercase tracking-widest opacity-40 font-bold">Document</span>
+            <span className="text-[10px] uppercase tracking-widest opacity-40 font-bold">
+              Document
+            </span>
           </div>
 
-          <div className="w-9"></div> {/* Spacer for balance */}
+          <button
+            onClick={handleDownload}
+            className="p-2 rounded-lg hover:bg-(--color-bg-light) dark:hover:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) transition-colors opacity-70 hover:opacity-100 cursor-pointer"
+            title={`Download as ${roomId || "document"}.txt`}
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* Editor Container */}
       <div className="max-w-4xl mx-auto px-6 pb-20">
         <div className="min-h-[80vh]">
-          <Editor roomId={roomId} />
+          <Editor ref={editorRef} roomId={roomId} />
         </div>
       </div>
     </div>
