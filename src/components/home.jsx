@@ -25,7 +25,7 @@ function HomePage() {
 
       <div className="max-w-md w-full glass rounded-3xl p-10 relative z-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-light tracking-tight text-[var(--color-primary)] mb-3">GAIAPAD</h1>
+          <h1 className="text-4xl font-light tracking-tight text-[var(--color-primary)] mb-3">SWIFTSHARE</h1>
           <p className="text-sm font-medium tracking-widest uppercase text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] opacity-60">
             live collaboration document
           </p>
