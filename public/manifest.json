@@ -1,0 +1,21 @@
+{
+  "name": "SwiftShare.in - Real-Time Collaborative Text Editor",
+  "short_name": "SwiftShare",
+  "description": "Free real-time collaborative text editor. Share documents instantly and edit together with your team.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "education"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

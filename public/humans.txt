@@ -1,0 +1,17 @@
+/* TEAM */
+Project: SwiftShare.in
+Site: https://swiftshare.in
+Description: Real-time collaborative text editor
+
+/* THANKS */
+- Yjs team for the CRDT library
+- Quill team for the editor
+- React and Vite communities
+
+/* TECHNOLOGY */
+Frontend: React, Vite, Tailwind CSS
+Backend: Node.js, WebSockets
+Database: MongoDB
+CRDT: Yjs
+Last update: 2026-01-29
+Standards: HTML5, CSS3, ES6+

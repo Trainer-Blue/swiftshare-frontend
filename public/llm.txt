@@ -1,0 +1,60 @@
+# SwiftShare.in - LLM Context
+
+## Overview
+SwiftShare.in is a real-time collaborative text editor that enables seamless document sharing and live collaboration. Built with modern web technologies, it provides a premium minimalist experience for teams and individuals.
+
+## Key Features
+- **Real-Time Collaboration**: Multiple users can edit documents simultaneously with conflict-free synchronization powered by Yjs CRDTs
+- **Instant Sharing**: Share documents via unique URLs - no sign-up required
+- **Live Sync**: See edits appear in real-time across all connected devices
+- **Dark Mode**: Full dark theme support with persistent preferences
+- **Connection Status**: Visual indicators for connection state and automatic reconnection
+- **Rich Text Editing**: Powered by Quill editor for a smooth writing experience
+- **Premium Design**: Minimalist glassmorphism UI for distraction-free editing
+
+## Technology Stack
+- Frontend: React + Vite
+- Backend: Node.js + WebSockets
+- CRDT Engine: Yjs for conflict-free replication
+- Database: MongoDB for document persistence
+- Real-time: WebSocket-based synchronization
+
+## Use Cases
+- Team collaboration on documents
+- Shared note-taking during meetings
+- Quick text sharing between devices
+- Remote pair writing and editing
+- Educational collaborative exercises
+- Project documentation with multiple contributors
+
+## Core Capabilities
+1. Create new documents instantly
+2. Share via unique URLs
+3. Collaborate in real-time with multiple users
+4. Automatic conflict resolution
+5. Persistent document storage
+6. No authentication required for basic usage
+
+## Target Audience
+- Teams needing quick document collaboration
+- Remote workers sharing notes and drafts
+- Students collaborating on assignments
+- Developers sharing code snippets and documentation
+- Anyone needing simple, fast document sharing
+
+## Website Structure
+- Homepage: Landing page with document creation
+- Editor: Real-time collaborative editing interface
+- File Manager: Document management sidebar
+
+## Privacy & Usage
+- Free to use
+- No sign-up required for basic features
+- Documents are persistently stored
+- Real-time synchronization across all clients
+
+## Technical Implementation
+- Uses CRDT (Conflict-free Replicated Data Types) for synchronization
+- WebSocket-based real-time communication
+- MongoDB for document persistence
+- Responsive design for all devices
