@@ -17,7 +17,12 @@
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Roboto",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -170,4 +175,52 @@ body {
 
 .dark .ql-editor.ql-blank::before {
   color: #57534e; /* Stone 600 */
+}
+
+/* Tooltip for image/video URL input */
+.ql-tooltip.ql-editing {
+  background-color: var(--color-surface-light) !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  color: var(--color-text-light) !important;
+}
+
+.dark .ql-tooltip.ql-editing {
+  background-color: var(--color-surface-dark) !important;
+  border-color: var(--color-border-dark) !important;
+  color: var(--color-text-dark) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.ql-tooltip.ql-editing input {
+  background-color: transparent !important;
+  border: 1px solid var(--color-border-light) !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  color: var(--color-text-light) !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.dark .ql-tooltip.ql-editing input {
+  border-color: var(--color-border-dark) !important;
+  color: var(--color-text-dark) !important;
+}
+
+.ql-tooltip.ql-editing input:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+}
+
+.ql-tooltip.ql-editing a.ql-action,
+.ql-tooltip.ql-editing a.ql-remove {
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+}
+
+.ql-tooltip.ql-editing a.ql-action::after,
+.ql-tooltip.ql-editing a.ql-remove::before {
+  border-right: 0px !important;
+  padding-left: 0px !important;
 }

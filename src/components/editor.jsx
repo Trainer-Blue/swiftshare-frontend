@@ -13,15 +13,21 @@ import * as Y from "yjs";
 import { QuillBinding } from "y-quill";
 import { WebsocketProvider } from "y-websocket";
 
-const Editor = forwardRef(({ roomId }, ref) => {
+const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
   const containerRef = useRef(null);
   const quillRef = useRef(null);
+  const yfilesRef = useRef(null);
 
   const { setStatus } = useStatus();
 
   // Expose getText method to parent
   useImperativeHandle(ref, () => ({
     getText: () => quillRef.current?.getText() || "",
+    addFile: (fileData) => {
+      if (yfilesRef.current) {
+        yfilesRef.current.push([fileData]);
+      }
+    },
   }));
 
   useEffect(() => {
@@ -40,6 +46,7 @@ const Editor = forwardRef(({ roomId }, ref) => {
           ["bold", "italic", "underline", "strike"],
           [{ color: [] }, { background: [] }],
           [{ list: "ordered" }, { list: "bullet" }],
+          ["video"],
           [{ align: [] }],
           ["blockquote", "code-block"],
           ["clean"],
@@ -61,7 +68,7 @@ const Editor = forwardRef(({ roomId }, ref) => {
     const provider = new WebsocketProvider(
       wsUrl,
       roomId || "room-0", // Use roomId from props or default
-      ydoc
+      ydoc,
     );
 
     let connectionAttempts = 0;
@@ -79,7 +86,7 @@ const Editor = forwardRef(({ roomId }, ref) => {
           provider.destroy();
           setStatus("error");
           console.error(
-            "Connection failed after 5 attempts. Provider destroyed."
+            "Connection failed after 5 attempts. Provider destroyed.",
           );
           return;
         }
@@ -102,13 +109,33 @@ const Editor = forwardRef(({ roomId }, ref) => {
     const ytext = ydoc.getText("quill");
     const binding = new QuillBinding(ytext, quillRef.current);
 
+    // Setup Y.Array for file list synchronization
+    const yfiles = ydoc.getArray("files");
+    yfilesRef.current = yfiles;
+
+    // Sync file list to parent component
+    const syncFiles = () => {
+      const fileList = yfiles.toArray();
+      if (onFilesChange) {
+        onFilesChange(fileList);
+      }
+    };
+
+    // Initial sync
+    syncFiles();
+
+    // Listen for changes
+    yfiles.observe(syncFiles);
+
     return () => {
+      yfiles.unobserve(syncFiles);
       binding.destroy();
       provider.destroy();
       if (container) {
         container.innerHTML = "";
       }
       quillRef.current = null;
+      yfilesRef.current = null;
       setStatus("disconnected");
     };
   }, [roomId, setStatus]); // Re-connect if roomId changes
