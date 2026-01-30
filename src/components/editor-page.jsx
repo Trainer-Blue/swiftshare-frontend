@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Editor from "./editor";
 import FileManagerSidebar from "./FileManagerSidebar";
+import UsernameInput from "./UsernameInput";
 
 function EditorPage() {
   const { roomId } = useParams();
@@ -9,6 +10,14 @@ function EditorPage() {
   const editorRef = useRef();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [files, setFiles] = useState([]);
+  const [username, setUsername] = useState(() => {
+    return localStorage.getItem("swiftshare-username") || "";
+  });
+
+  const handleUsernameChange = (newName) => {
+    setUsername(newName);
+    localStorage.setItem("swiftshare-username", newName);
+  };
 
   const handleFilesChange = (newFiles) => {
     setFiles(newFiles);
@@ -117,6 +126,12 @@ function EditorPage() {
             </div>
           </div>
 
+          {/* Username Input */}
+          <UsernameInput
+            value={username}
+            onChange={handleUsernameChange}
+          />
+
           <button
             onClick={handleDownload}
             className="p-2 rounded-lg hover:bg-(--color-bg-light) dark:hover:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) transition-colors opacity-70 hover:opacity-100 cursor-pointer"
@@ -146,6 +161,8 @@ function EditorPage() {
             ref={editorRef}
             roomId={roomId}
             onFilesChange={handleFilesChange}
+            username={username}
+            onUsernameChange={handleUsernameChange}
           />
         </div>
       </div>

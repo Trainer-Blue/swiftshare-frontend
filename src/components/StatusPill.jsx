@@ -4,7 +4,7 @@ import { useStatus } from "../context/StatusContext";
 
 const StatusPill = () => {
   const { theme, toggleTheme } = useTheme();
-  const { status } = useStatus();
+  const { status, userCount } = useStatus();
   const [isHovered, setIsHovered] = useState(false);
 
   const getStatusColor = () => {
@@ -25,7 +25,7 @@ const StatusPill = () => {
   const getStatusText = () => {
     switch (status) {
       case "connected":
-        return "Connected";
+        return userCount > 0 ? `Connected {${userCount} online}` : "Connected";
       case "connecting":
         return "Connecting...";
       case "disconnected":
@@ -44,7 +44,7 @@ const StatusPill = () => {
         href="https://stats.uptimerobot.com/nLtFpsDecL"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 pr-3 border-r border-[var(--color-border-light)] dark:border-[var(--color-border-dark)] hover:opacity-80 transition-opacity"
+        className="flex items-center gap-2 pr-3 border-r border-(--color-border-light) dark:border-(--color-border-dark) hover:opacity-80 transition-opacity"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -52,14 +52,14 @@ const StatusPill = () => {
         
         <div className="grid place-items-center">
           <span 
-            className={`col-start-1 row-start-1 text-xs font-medium text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] whitespace-nowrap transition-all duration-300 ease-in-out ${
+            className={`col-start-1 row-start-1 text-xs font-medium text-(--color-text-light) dark:text-(--color-text-dark) whitespace-nowrap transition-all duration-300 ease-in-out ${
               isHovered ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'
             }`}
           >
             {getStatusText()}
           </span>
           <span 
-            className={`col-start-1 row-start-1 text-xs font-medium text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] whitespace-nowrap transition-all duration-300 ease-in-out ${
+            className={`col-start-1 row-start-1 text-xs font-medium text-(--color-text-light) dark:text-(--color-text-dark) whitespace-nowrap transition-all duration-300 ease-in-out ${
               isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
             }`}
           >
@@ -71,7 +71,7 @@ const StatusPill = () => {
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
-        className="flex items-center justify-center w-6 h-6 text-[var(--color-text-light)] dark:text-[var(--color-text-dark)] hover:text-[var(--color-primary)] dark:hover:text-[var(--color-primary)] transition-colors opacity-60 hover:opacity-100"
+        className="flex items-center justify-center w-6 h-6 text-(--color-text-light) dark:text-(--color-text-dark) hover:text-(--color-primary) dark:hover:text-(--color-primary) transition-colors opacity-60 hover:opacity-100"
         aria-label="Toggle Theme"
       >
         {theme === "dark" ? (

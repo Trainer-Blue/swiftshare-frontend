@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { useStatus } from "../context/StatusContext";
 import Quill from "quill";
+import QuillCursors from "quill-cursors";
 import "quill/dist/quill.snow.css";
 
 // Yjs imports
@@ -13,14 +14,34 @@ import * as Y from "yjs";
 import { QuillBinding } from "y-quill";
 import { WebsocketProvider } from "y-websocket";
 
-const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
+// Register Quill Cursors module
+Quill.register("modules/cursors", QuillCursors);
+
+// Cursor colors - matches the CSS
+const cursorColors = [
+  "#ef4444", "#3b82f6", "#10b981", "#f59e0b",
+  "#8b5cf6", "#ec4899", "#14b8a6", "#f97316"
+];
+
+// Random animal names for anonymous users
+const anonymousNames = [
+  "Fox", "Bear", "Owl", "Wolf",
+  "Hawk", "Deer", "Lynx", "Crow"
+];
+
+const getRandomName = () => 
+  anonymousNames[Math.floor(Math.random() * anonymousNames.length)];
+
+const Editor = forwardRef(({ roomId, onFilesChange, username, onUsernameChange }, ref) => {
   const containerRef = useRef(null);
   const quillRef = useRef(null);
   const yfilesRef = useRef(null);
+  const providerRef = useRef(null);
+  const bindingRef = useRef(null);
 
-  const { setStatus } = useStatus();
+  const { setStatus, setUserCount } = useStatus();
 
-  // Expose getText method to parent
+  // Expose methods to parent
   useImperativeHandle(ref, () => ({
     getText: () => quillRef.current?.getText() || "",
     addFile: (fileData) => {
@@ -30,6 +51,20 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
     },
   }));
 
+  // Update awareness when username changes
+  useEffect(() => {
+    if (providerRef.current && username) {
+      const awareness = providerRef.current.awareness;
+      const clientId = awareness.clientID;
+      const color = cursorColors[clientId % cursorColors.length];
+      
+      awareness.setLocalStateField("user", {
+        name: username,
+        color: color,
+      });
+    }
+  }, [username]);
+
   useEffect(() => {
     if (!containerRef.current || quillRef.current) return;
 
@@ -37,7 +72,7 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
     const editorContainer = document.createElement("div");
     container.appendChild(editorContainer);
 
-    quillRef.current = new Quill(editorContainer, {
+    const quill = new Quill(editorContainer, {
       theme: "snow",
       placeholder: "Start writing...",
       modules: {
@@ -51,11 +86,14 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
           ["blockquote", "code-block"],
           ["clean"],
         ],
+        cursors: true,
       },
     });
 
+    quillRef.current = quill;
+
     // Disable editor initially
-    quillRef.current.enable(false);
+    quill.enable(false);
     setStatus("connecting");
 
     // Yjs setup with dynamic room ID from URL
@@ -67,9 +105,33 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
 
     const provider = new WebsocketProvider(
       wsUrl,
-      roomId || "room-0", // Use roomId from props or default
+      roomId || "room-0",
       ydoc,
     );
+    providerRef.current = provider;
+
+    // Set initial user awareness state
+    const initialName = username || getRandomName();
+    if (!username && onUsernameChange) {
+      onUsernameChange(initialName);
+    }
+    
+    const clientId = provider.awareness.clientID;
+    const color = cursorColors[clientId % cursorColors.length];
+    
+    provider.awareness.setLocalStateField("user", {
+      name: initialName,
+      color: color,
+    });
+
+    // Track user count via awareness
+    const updateUserCount = () => {
+      const count = provider.awareness.getStates().size;
+      setUserCount(count);
+    };
+
+    provider.awareness.on("change", updateUserCount);
+    updateUserCount();
 
     let connectionAttempts = 0;
 
@@ -77,12 +139,10 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
       console.log("WebSocket status:", event.status);
       if (event.status === "connected") {
         connectionAttempts = 0;
-        // Wait for sync to enable editor
       } else if (event.status === "connecting") {
         connectionAttempts++;
         console.log(`Connection attempt ${connectionAttempts}/5`);
         if (connectionAttempts > 5) {
-          // destroy() completely stops the provider and removes all event listeners
           provider.destroy();
           setStatus("error");
           console.error(
@@ -91,10 +151,10 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
           return;
         }
         setStatus(event.status);
-        quillRef.current?.enable(false);
+        quill.enable(false);
       } else {
-        setStatus(event.status); // 'disconnected'
-        quillRef.current?.enable(false);
+        setStatus(event.status);
+        quill.enable(false);
       }
     });
 
@@ -102,18 +162,20 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
       console.log("Synced:", isSynced);
       if (isSynced) {
         setStatus("connected");
-        quillRef.current?.enable(true);
+        quill.enable(true);
       }
     });
 
     const ytext = ydoc.getText("quill");
-    const binding = new QuillBinding(ytext, quillRef.current);
+    
+    // Create binding with awareness for cursor sync
+    const binding = new QuillBinding(ytext, quill, provider.awareness);
+    bindingRef.current = binding;
 
     // Setup Y.Array for file list synchronization
     const yfiles = ydoc.getArray("files");
     yfilesRef.current = yfiles;
 
-    // Sync file list to parent component
     const syncFiles = () => {
       const fileList = yfiles.toArray();
       if (onFilesChange) {
@@ -121,24 +183,27 @@ const Editor = forwardRef(({ roomId, onFilesChange }, ref) => {
       }
     };
 
-    // Initial sync
     syncFiles();
-
-    // Listen for changes
     yfiles.observe(syncFiles);
 
     return () => {
+      provider.awareness.off("change", updateUserCount);
       yfiles.unobserve(syncFiles);
-      binding.destroy();
+      if (bindingRef.current) {
+        bindingRef.current.destroy();
+        bindingRef.current = null;
+      }
       provider.destroy();
+      providerRef.current = null;
       if (container) {
         container.innerHTML = "";
       }
       quillRef.current = null;
       yfilesRef.current = null;
       setStatus("disconnected");
+      setUserCount(0);
     };
-  }, [roomId, setStatus]); // Re-connect if roomId changes
+  }, [roomId, setStatus, setUserCount]);
 
   return <div ref={containerRef}></div>;
 });

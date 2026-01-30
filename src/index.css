@@ -224,3 +224,76 @@ body {
   border-right: 0px !important;
   padding-left: 0px !important;
 }
+
+/* ===== Collaborative Cursor Styles ===== */
+/* quill-cursors module structure */
+.ql-cursors {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 30; /* Below sidebar overlay (z-40) so cursors get blurred */
+  pointer-events: none;
+}
+
+.ql-cursor {
+  position: absolute;
+  pointer-events: none;
+}
+
+.ql-cursor-caret-container {
+  position: relative;
+  width: 0;
+  height: 100%;
+}
+
+.ql-cursor-caret {
+  position: absolute;
+  width: 2px !important;
+  height: 100%;
+  border-radius: 1px;
+  animation: cursor-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.ql-cursor-flag {
+  display: block !important;
+  visibility: visible !important;
+  position: absolute !important;
+  top: -24px;
+  left: -1px;
+  white-space: nowrap;
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 3px 8px;
+  border-radius: 6px 6px 6px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  color: white !important;
+  z-index: 100;
+  opacity: 1 !important;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  /* The background color is set inline by quill-cursors */
+}
+
+/* Make sure the name text inside flag is visible */
+.ql-cursor-flag > * {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Hide flag when cursor is explicitly hidden */
+.ql-cursor.hidden .ql-cursor-flag {
+  opacity: 0 !important;
+}
+
+/* Selection highlight for remote users */
+.ql-cursor-selection-block {
+  position: absolute;
+  opacity: 0.3;
+}
+
