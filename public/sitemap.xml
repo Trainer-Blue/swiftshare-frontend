@@ -7,17 +7,16 @@
   <!-- Homepage -->
   <url>
     <loc>https://swiftshare.in/</loc>
-    <lastmod>2026-01-29</lastmod>
+    <lastmod>2026-01-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Editor Page (if you have a dedicated route)
+
   <url>
-    <loc>https://swiftshare.in/editor</loc>
-    <lastmod>2026-01-29</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://swiftshare.in/moreinfo/about</loc>
+    <lastmod>2026-01-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url> -->
+  </url>
 
 </urlset>

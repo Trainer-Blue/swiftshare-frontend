@@ -398,7 +398,7 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
                   onClick={() => handleDownloadFile(file)}
                   className="group flex items-center gap-3 p-3 bg-white dark:bg-stone-800 hover:bg-stone-100 dark:hover:bg-stone-700 rounded-lg border border-stone-200 dark:border-stone-700 cursor-pointer transition-all hover:shadow-md"
                 >
-                  <div className="text-3xl flex-shrink-0">
+                  <div className="text-3xl shrink-0">
                     {getFileIcon(file.name)}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -410,7 +410,7 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
                     </p>
                   </div>
                   <svg
-                    className="w-5 h-5 text-stone-400 group-hover:text-orange-600 transition-colors flex-shrink-0"
+                    className="w-5 h-5 text-stone-400 group-hover:text-orange-600 transition-colors shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"

@@ -14,6 +14,10 @@ function EditorPage() {
     setFiles(newFiles);
   };
 
+  React.useEffect(() => {
+    document.title = `${roomId} - SwiftShare.in`;
+  }, [roomId]);
+
   const handleFileAdd = (fileData) => {
     if (editorRef.current?.addFile) {
       editorRef.current.addFile(fileData);
