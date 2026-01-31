@@ -191,7 +191,7 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-96 glass z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${
+        className={`fixed top-0 left-0 h-full w-96 bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border-r border-stone-200/50 dark:border-stone-700/50 z-50 shadow-2xl transition-transform duration-300 ease-in-out flex flex-col ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >

@@ -118,7 +118,7 @@ const AboutPage = () => {
 
         {/* Hero Section */}
         <header className="mb-24 text-center">
-          <div className="inline-block glass rounded-2xl px-8 py-12 md:p-16 mb-8 transform hover:scale-[1.01] transition-transform duration-500">
+          <div className="inline-block bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-2xl px-8 py-12 md:p-16 mb-8 transform hover:scale-[1.01] transition-transform duration-500">
             <div className="flex justify-center">
               <img src="/logo.svg" alt="SwiftShare Logo" className="w-30 h-30 drop-shadow-2xl" />
             </div>
@@ -139,7 +139,7 @@ const AboutPage = () => {
             {features.map((feature, idx) => (
               <div
                 key={idx}
-                className="glass rounded-3xl p-8 hover:shadow-(--color-primary)/10 transition-shadow duration-300"
+                className="bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-3xl p-8 hover:shadow-(--color-primary)/10 transition-shadow duration-300"
               >
                 <div className="w-12 h-12 rounded-xl bg-(--color-primary)/10 flex items-center justify-center text-(--color-primary) mb-6">
                   {feature.icon}
@@ -158,7 +158,7 @@ const AboutPage = () => {
         {/* How It Works & Tech Stack */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
           {/* How It Works */}
-          <section className="glass rounded-3xl p-8 md:p-10">
+          <section className="bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-3xl p-8 md:p-10">
             <h2 className="text-2xl font-light tracking-tight mb-8 flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-(--color-primary)"></span>
               How It Works
@@ -182,7 +182,7 @@ const AboutPage = () => {
           </section>
 
           {/* Tech Stack */}
-          <section className="glass rounded-3xl p-8 md:p-10">
+          <section className="bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-3xl p-8 md:p-10">
             <h2 className="text-2xl font-light tracking-tight mb-8">
               Technology Stack
             </h2>
@@ -251,7 +251,7 @@ const AboutPage = () => {
               href="https://github.com/Trainer-Blue/swiftshare-backend"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-4 glass border border-(--color-primary) text-(--color-primary) rounded-xl font-medium hover:bg-orange-500/5 transition-all flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-(--color-primary) text-(--color-primary) rounded-xl font-medium hover:bg-orange-500/5 transition-all flex items-center justify-center gap-2"
             >
               <svg
                 className="w-5 h-5"

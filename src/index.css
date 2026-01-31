@@ -37,23 +37,6 @@ body {
   color: var(--color-text-dark);
 }
 
-/* Glassmorphism Utilities */
-/* Base: solid opaque background (always works) */
-/* Blur effect: applied on top as progressive enhancement */
-.glass {
-  background: rgba(250, 249, 246, 0.50);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border-light);
-}
-
-.dark .glass {
-  background: rgba(28, 25, 23, 0.50);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
 /* Quill Editor Custom Styles - Minimalist Strip */
 .ql-container {
   font-size: 18px; /* Slightly larger for readability */
@@ -97,9 +80,6 @@ body {
   border-radius: 12px;
   padding: 12px !important;
   margin-bottom: 24px;
-  position: sticky;
-  top: 100px; /* Adjusted to clear the floating header (top-6 + header height) */
-  z-index: 40; /* Lower than header (z-50) but high enough */
   backdrop-filter: blur(8px);
   @apply transition-colors duration-300;
 }
@@ -109,7 +89,6 @@ body {
   .ql-toolbar {
     gap: 4px;
     padding: 8px !important;
-    top: 70px; /* Adjust for smaller header on mobile */
   }
 }
 

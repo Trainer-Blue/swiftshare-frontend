@@ -31,7 +31,7 @@ function HomePage() {
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-md w-full glass rounded-3xl p-10 relative z-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
+      <div className="max-w-md w-full bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-3xl p-10 relative z-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-light tracking-tight text-(--color-primary) mb-3">SWIFTSHARE</h1>
           <p className="text-sm font-medium tracking-widest uppercase text-(--color-text-light) dark:text-(--color-text-dark) opacity-60">
