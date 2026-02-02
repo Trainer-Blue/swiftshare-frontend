@@ -71,7 +71,7 @@ function EditorPage() {
 
       {/* Floating Header */}
       <div className="sticky top-6 z-40 px-6 mb-12">
-        <div className="max-w-4xl mx-auto bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-2xl px-6 py-4 flex items-center justify-between shadow-lg shadow-black/5 dark:shadow-black/20">
+        <div className="max-w-4xl mx-auto backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-2xl px-6 py-4 flex items-center justify-between shadow-lg shadow-black/5 dark:shadow-black/20">
           {/* Folder Icon for Sidebar */}
           <button
             onClick={() => setIsSidebarOpen(true)}
@@ -127,10 +127,7 @@ function EditorPage() {
           </div>
 
           {/* Username Input */}
-          <UsernameInput
-            value={username}
-            onChange={handleUsernameChange}
-          />
+          <UsernameInput value={username} onChange={handleUsernameChange} />
 
           <button
             onClick={handleDownload}

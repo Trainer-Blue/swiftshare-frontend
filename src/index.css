@@ -71,6 +71,9 @@ body {
 }
 
 .ql-toolbar {
+  position: sticky;
+  top: 100px;
+  z-index: 20;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
