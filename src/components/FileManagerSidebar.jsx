@@ -47,12 +47,12 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
   const handleDragLeave = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     // Check if we're actually leaving the dropzone container
     if (e.currentTarget.contains(e.relatedTarget)) {
       return;
     }
-    
+
     setIsDragActive(false);
   }, []);
 
@@ -127,7 +127,6 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
       wav: "🎵",
       // Other
       default: "📎",
-      
     };
     return icons[ext] || icons.default;
   };
@@ -272,6 +271,29 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
               )}
             </button>
           )}
+
+          {/* File Retention Info */}
+          <div className="mt-4 p-3 bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-800/30 rounded-lg">
+            <div className="flex items-start gap-2">
+              <svg
+                className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p className="text-xs text-amber-700 dark:text-amber-300 leading-relaxed">
+                Files are automatically deleted 15 minutes after everyone leaves
+                the room.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Upload Zone */}
@@ -294,7 +316,7 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
               className="hidden"
               multiple
             />
-            
+
             {/* Background Pattern */}
             <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
               <div className="absolute inset-0 bg-[radial-gradient(#ea580c_1px,transparent_1px)] bg-size-[16px_16px] mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-[0.1]"></div>
@@ -323,7 +345,9 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[10px] font-bold text-orange-600">{Math.round(uploadProgress || 0)}%</span>
+                    <span className="text-[10px] font-bold text-orange-600">
+                      {Math.round(uploadProgress || 0)}%
+                    </span>
                   </div>
                 </div>
                 <div className="w-full max-w-[200px]">
@@ -340,7 +364,9 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
               </div>
             ) : (
               <div className="relative z-10 flex flex-col items-center gap-3 transition-transform duration-300 group-hover:-translate-y-1">
-                <div className={`p-3 rounded-full transition-colors duration-300 ${isDragActive ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-600' : 'bg-stone-100 dark:bg-stone-800 text-stone-400 group-hover:text-orange-500 group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20'}`}>
+                <div
+                  className={`p-3 rounded-full transition-colors duration-300 ${isDragActive ? "bg-orange-100 dark:bg-orange-900/30 text-orange-600" : "bg-stone-100 dark:bg-stone-800 text-stone-400 group-hover:text-orange-500 group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20"}`}
+                >
                   <svg
                     className="w-8 h-8"
                     fill="none"
@@ -357,9 +383,7 @@ const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-stone-700 dark:text-stone-300 group-hover:text-orange-600 transition-colors">
-                    {isDragActive
-                      ? "Drop to upload!"
-                      : "Click or drag files"}
+                    {isDragActive ? "Drop to upload!" : "Click or drag files"}
                   </p>
                   <p className="text-xs text-stone-500 mt-1.5 group-hover:text-stone-600 dark:group-hover:text-stone-400 transition-colors">
                     Max size 100MB per file
