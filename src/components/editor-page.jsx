@@ -75,7 +75,7 @@ function EditorPage() {
           {/* Folder Icon for Sidebar */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="p-2 rounded-lg hover:bg-(--color-bg-light) dark:hover:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) transition-colors opacity-70 hover:opacity-100"
+            className="relative p-2 rounded-lg hover:bg-(--color-bg-light) dark:hover:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) transition-colors opacity-70 hover:opacity-100"
             title="Open files"
           >
             <svg
@@ -91,6 +91,11 @@ function EditorPage() {
                 d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
               />
             </svg>
+            {files.length > 0 && (
+              <span className="absolute top-0.5 right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white ring-1 ring-white dark:ring-stone-800">
+                {files.length}
+              </span>
+            )}
           </button>
 
           <div className="flex items-center gap-4">
