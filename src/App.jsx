@@ -8,6 +8,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import { StatusProvider } from "./providers/StatusProvider";
 import StatusPill from "./components/StatusPill";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         </Routes>
         <StatusPill />
         <Analytics />
+        <SpeedInsights />
       </StatusProvider>
     </ThemeProvider>
   );
