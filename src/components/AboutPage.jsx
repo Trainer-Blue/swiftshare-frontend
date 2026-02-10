@@ -269,6 +269,19 @@ const AboutPage = () => {
               Backend Repo
             </a>
           </div>
+          
+          {/* Server Health Button */}
+          <div className="mt-8">
+            <Link
+              to="/moreinfo/server-health"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 rounded-xl font-medium hover:bg-green-500/20 transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              View Server Health
+            </Link>
+          </div>
         </section>
 
         <footer className="text-center text-sm opacity-40 pb-8">

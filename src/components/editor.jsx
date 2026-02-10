@@ -27,6 +27,11 @@ const cursorColors = [
   "#ec4899",
   "#14b8a6",
   "#f97316",
+  "#6366f1",
+  "#db2777",
+  "#22c55e",
+  "#eab308",
+  "#a855f7",
 ];
 
 // Random animal names for anonymous users
@@ -34,11 +39,16 @@ const anonymousNames = [
   "Fox",
   "Bear",
   "Owl",
+  "Rabbit",
   "Wolf",
   "Hawk",
   "Deer",
   "Lynx",
   "Crow",
+  "Raven",
+  "Sparrow",
+  "Eagle",
+  "Falcon"
 ];
 
 const getRandomName = () =>
