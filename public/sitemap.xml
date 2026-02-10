@@ -14,9 +14,16 @@
 
   <url>
     <loc>https://swiftshare.in/moreinfo/about</loc>
-    <lastmod>2026-01-30</lastmod>
+    <lastmod>2026-02-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://swiftshare.in/moreinfo/server-health</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>

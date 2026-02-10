@@ -27,6 +27,13 @@ const ServerHealth = () => {
   useEffect(() => {
     fetchHealth();
 
+    // Set page title and meta tags
+    document.title = "Server Health - SwiftShare.in | Real-Time Backend Metrics";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.content = "Monitor SwiftShare backend server health in real-time. View CPU usage, memory stats, active connections, and system metrics.";
+    }
+
     let interval;
     if (autoRefresh) {
       interval = setInterval(fetchHealth, 5000); // Refresh every 5s
