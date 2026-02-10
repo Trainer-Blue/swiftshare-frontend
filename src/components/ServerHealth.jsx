@@ -8,7 +8,7 @@ const ServerHealth = () => {
   const [autoRefresh, setAutoRefresh] = useState(false);
 
   const backendUrl =
-    import.meta.env.VITE_WS_URL || "http://localhost:1234";
+    import.meta.env.VITE_BACKEND_URL || "http://localhost:1234";
 
   const fetchHealth = async () => {
     try {

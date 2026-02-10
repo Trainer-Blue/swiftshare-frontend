@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { generateReactHelpers } from "@uploadthing/react";
 
-const wsUrl = import.meta.env.VITE_WS_URL || "ws://localhost:1234";
-const apiUrl = wsUrl.replace("ws://", "http://").replace("wss://", "https://");
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const { useUploadThing } = generateReactHelpers({
-  url: `${apiUrl}/api/uploadthing`,
+  url: `${backendUrl}/api/uploadthing`,
 });
 
 const FileManagerSidebar = ({ isOpen, onClose, files, onFileAdd }) => {
