@@ -218,7 +218,7 @@ const AboutPage = () => {
         </div>
 
         {/* Open Source / Footer */}
-        <section className="text-center mb-16">
+        <section id="open-source" className="text-center mb-16">
           <h2 className="text-3xl font-light tracking-tight mb-8">
             Clean & Open Source
           </h2>

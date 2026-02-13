@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const ServerHealth = () => {
@@ -10,7 +10,7 @@ const ServerHealth = () => {
   const backendUrl =
     import.meta.env.VITE_BACKEND_URL || "http://localhost:1234";
 
-  const fetchHealth = async () => {
+  const fetchHealth = useCallback(async () => {
     try {
       const response = await fetch(`${backendUrl}/api/health`);
       if (!response.ok) throw new Error("Server unreachable");
@@ -22,16 +22,18 @@ const ServerHealth = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [backendUrl]); // Only recreate if backendUrl changes (never)
 
   useEffect(() => {
     fetchHealth();
 
     // Set page title and meta tags
-    document.title = "Server Health - SwiftShare.in | Real-Time Backend Metrics";
+    document.title =
+      "Server Health - SwiftShare.in | Real-Time Backend Metrics";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.content = "Monitor SwiftShare backend server health in real-time. View CPU usage, memory stats, active connections, and system metrics.";
+      metaDescription.content =
+        "Monitor SwiftShare backend server health in real-time. View CPU usage, memory stats, active connections, and system metrics.";
     }
 
     let interval;
@@ -42,7 +44,7 @@ const ServerHealth = () => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [autoRefresh]);
+  }, [autoRefresh, fetchHealth]); 
 
   const formatUptime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
