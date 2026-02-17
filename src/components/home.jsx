@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { generateRoomId, sanitizeRoomId } from "../utils/roomId";
 
 function HomePage() {
   const [roomName, setRoomName] = useState("");
@@ -9,19 +10,26 @@ function HomePage() {
     document.title = "SwiftShare.in - Real-Time Collaborative Text Editor";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.content = "SwiftShare.in is a free, real-time collaborative text editor. Share documents instantly, edit together with your team, and experience seamless collaboration with live sync. No sign-up required!";
+      metaDescription.content =
+        "SwiftShare.in is a free, real-time collaborative text editor. Share documents instantly, edit together with your team, and experience seamless collaboration with live sync. No sign-up required!";
     }
   }, []);
 
+  // Generate a random room ID and navigate to it
   const createRoom = () => {
-    const randomRoom = Math.random().toString(36).substring(2, 8);
-    navigate(`/${randomRoom}`);
+    navigate(`/${generateRoomId()}`);
   };
 
+  // Update room name state with sanitized input in real-time to prevent invalid characters
+  const handleRoomNameChange = (e) => {
+    setRoomName(sanitizeRoomId(e.target.value));
+  };
+
+  // Handle form submission to join the specified room
   const joinRoom = (e) => {
     e.preventDefault();
-    if (roomName.trim()) {
-      navigate(`/${roomName.trim()}`);
+    if (roomName) {
+      navigate(`/${roomName}`);
     }
   };
 
@@ -33,12 +41,14 @@ function HomePage() {
 
       <div className="max-w-md w-full bg-stone-50/50 dark:bg-stone-900/50 backdrop-blur-sm border border-stone-200/50 dark:border-stone-700/50 rounded-3xl p-10 relative z-10 shadow-2xl shadow-black/5 dark:shadow-black/20">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-light tracking-tight text-(--color-primary) mb-3">SWIFTSHARE</h1>
+          <h1 className="text-4xl font-light tracking-tight text-(--color-primary) mb-3">
+            SWIFTSHARE
+          </h1>
           <p className="text-sm font-medium tracking-widest uppercase text-(--color-text-light) dark:text-(--color-text-dark) opacity-60">
             live collaboration document
           </p>
-          <button 
-            onClick={() => navigate('/moreinfo/about')}
+          <button
+            onClick={() => navigate("/moreinfo/about")}
             className="mt-5 px-5 py-2 rounded-full border border-(--color-primary)/20 text-(--color-primary) text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-(--color-primary) hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20 active:scale-95"
           >
             About &rarr;
@@ -58,21 +68,30 @@ function HomePage() {
               <div className="w-full border-t border-(--color-border-light) dark:border-(--color-border-dark)"></div>
             </div>
             <div className="relative flex justify-center text-xs uppercase tracking-widest">
-              <span className="px-4 bg-(--color-bg-light) dark:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) opacity-50">or</span>
+              <span className="px-4 bg-(--color-bg-light) dark:bg-(--color-bg-dark) text-(--color-text-light) dark:text-(--color-text-dark) opacity-50">
+                or
+              </span>
             </div>
           </div>
 
           <form onSubmit={joinRoom} className="space-y-4">
-            <input
-              type="text"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              placeholder="Enter room name..."
-              className="w-full px-5 py-4 bg-transparent border border-(--color-border-light) dark:border-(--color-border-dark) rounded-xl focus:outline-none focus:border-(--color-primary) focus:ring-1 focus:ring-(--color-primary) transition-all placeholder:opacity-40 text-center"
-            />
+            <div>
+              <input
+                type="text"
+                value={roomName}
+                onChange={handleRoomNameChange}
+                maxLength={50}
+                placeholder="Enter room name..."
+                className="w-full px-5 py-4 bg-transparent border border-(--color-border-light) dark:border-(--color-border-dark) rounded-xl focus:outline-none focus:border-(--color-primary) focus:ring-1 focus:ring-(--color-primary) transition-all placeholder:opacity-40 text-center"
+              />
+              <p className="mt-2 text-[11px] text-(--color-text-light) dark:text-(--color-text-dark) opacity-40 text-center">
+                letters, numbers, hyphens &amp; underscores only
+              </p>
+            </div>
             <button
               type="submit"
-              className="w-full bg-transparent border border-(--color-border-light) dark:border-(--color-border-dark) text-(--color-text-light) dark:text-(--color-text-dark) py-4 px-6 rounded-xl font-medium hover:bg-(--color-surface-light) dark:hover:bg-(--color-surface-dark) transition-all active:scale-[0.98]"
+              disabled={!roomName}
+              className="w-full bg-transparent border border-(--color-border-light) dark:border-(--color-border-dark) text-(--color-text-light) dark:text-(--color-text-dark) py-4 px-6 rounded-xl font-medium hover:bg-(--color-surface-light) dark:hover:bg-(--color-surface-dark) transition-all active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none"
             >
               Join Room
             </button>

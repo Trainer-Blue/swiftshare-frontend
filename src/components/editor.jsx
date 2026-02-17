@@ -48,7 +48,7 @@ const anonymousNames = [
   "Raven",
   "Sparrow",
   "Eagle",
-  "Falcon"
+  "Falcon",
 ];
 
 const getRandomName = () =>
@@ -126,7 +126,11 @@ const Editor = forwardRef(
 
       console.log("Connecting to WebSocket server");
 
-      const provider = new WebsocketProvider(wsUrl, roomId || "room-0", ydoc);
+      const provider = new WebsocketProvider(
+        wsUrl,
+        (roomId || "room-0").toLowerCase(),
+        ydoc,
+      );
       providerRef.current = provider;
 
       // Set initial user awareness state

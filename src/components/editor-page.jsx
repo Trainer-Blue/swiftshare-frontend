@@ -3,20 +3,31 @@ import { useParams, useNavigate } from "react-router-dom";
 import Editor from "./editor";
 import FileManagerSidebar from "./FileManagerSidebar";
 import UsernameInput from "./UsernameInput";
+import { sanitizeRoomId } from "../utils/roomId";
 
 function EditorPage() {
-  const { roomId } = useParams();
+  const { roomId: rawRoomId } = useParams();
   const navigate = useNavigate();
   const editorRef = useRef();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [files, setFiles] = useState([]);
   const [username, setUsername] = useState(() => {
-    return localStorage.getItem("swiftshare-username") || "";
+    return localStorage.getItem("swiftshare-username") || ""; // if a name exists in local storage, otherwise empty string
   });
+
+  // Sanitize room ID: lowercase, strip invalid chars, cap at 50
+  const roomId = sanitizeRoomId(rawRoomId);
+
+  // Silent redirect if the URL differs from the sanitized version
+  React.useEffect(() => {
+    if (rawRoomId !== roomId) {
+      navigate(roomId ? `/${roomId}` : "/", { replace: true });
+    }
+  }, [rawRoomId, roomId, navigate]);
 
   const handleUsernameChange = (newName) => {
     setUsername(newName);
-    localStorage.setItem("swiftshare-username", newName);
+    localStorage.setItem("swiftshare-username", newName); // persist username in local storage
   };
 
   const handleFilesChange = (newFiles) => {
@@ -47,6 +58,11 @@ function EditorPage() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
+
+  // While redirecting, render nothing
+  if (!roomId || rawRoomId !== roomId) {
+    return null;
+  }
 
   return (
     <div
