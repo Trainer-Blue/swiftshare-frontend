@@ -1,7 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const AboutPage = () => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("ishansiddhartha@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   useEffect(() => {
     document.title = "About - SwiftShare.in | Real-Time Collaborative Editor";
     // Update meta tags for SEO
@@ -216,6 +224,180 @@ const AboutPage = () => {
             </div>
           </section>
         </div>
+
+        {/* Enterprise & Custom Solutions Section */}
+        <section className="mb-24">
+          <div className="bg-gradient-to-b from-stone-50/70 to-stone-100/40 dark:from-stone-900/70 dark:to-stone-950/40 backdrop-blur-md border border-orange-500/25 rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-orange-500/10 rounded-full blur-[90px] pointer-events-none" />
+
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-widest uppercase bg-orange-500/10 text-(--color-primary) border border-orange-500/20 mb-4">
+                B2B &amp; Custom Development
+              </span>
+              <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-4">
+                Enterprise &amp; Custom Solutions
+              </h2>
+              <p className="text-base md:text-lg opacity-70 leading-relaxed">
+                Need real-time collaboration or secure file sharing tailored to
+                your team? We build bespoke integrations, private deployments,
+                and custom instances.
+              </p>
+            </div>
+
+            {/* 3 Pillars Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="p-6 rounded-2xl bg-white/40 dark:bg-stone-900/60 border border-stone-200/50 dark:border-stone-800/80 hover:border-orange-500/40 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-(--color-primary) flex items-center justify-center mb-5">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.8}
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium mb-2">Custom Features</h3>
+                <p className="text-sm opacity-70 leading-relaxed">
+                  Export formats (PDF, Markdown, Docx), custom plugins, webhook
+                  triggers, custom storage adapters (AWS S3, Cloudflare R2), and
+                  API integrations.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-white/40 dark:bg-stone-900/60 border border-stone-200/50 dark:border-stone-800/80 hover:border-orange-500/40 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-(--color-primary) flex items-center justify-center mb-5">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.8}
+                      d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium mb-2">Private Deployments</h3>
+                <p className="text-sm opacity-70 leading-relaxed">
+                  Turnkey deployment onto your private cloud (AWS, GCP,
+                  Kubernetes) or air-gapped on-premise infrastructure for 100%
+                  data sovereignty and compliance.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-white/40 dark:bg-stone-900/60 border border-stone-200/50 dark:border-stone-800/80 hover:border-orange-500/40 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-(--color-primary) flex items-center justify-center mb-5">
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.8}
+                      d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium mb-2">White-Labeling</h3>
+                <p className="text-sm opacity-70 leading-relaxed">
+                  Custom domain setup, your own branding &amp; themes, company
+                  SSO authentication, and dedicated internal collaboration rooms.
+                </p>
+              </div>
+            </div>
+
+            {/* Contact Action Card */}
+            <div className="p-6 md:p-8 rounded-2xl bg-orange-500/5 border border-orange-500/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="text-center sm:text-left">
+                <h4 className="text-lg font-medium mb-1">
+                  Have a custom feature or project in mind?
+                </h4>
+                <p className="text-sm opacity-70">
+                  Reach out directly with your requirements and timeline for a quick quote.
+                </p>
+                <p className="text-xs font-mono text-(--color-primary) mt-1">
+                  ishansiddhartha@gmail.com
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+                <a
+                  href="mailto:ishansiddhartha@gmail.com?subject=SwiftShare%20Enterprise%20%2F%20Custom%20Feature%20Inquiry&body=Hi%20Ishan%2C%0A%0AI'm%20interested%20in%20custom%20features%20or%20an%20enterprise%20setup%20for%20SwiftShare.%0A%0AHere%20is%20what%20we're%20looking%20for%3A%0A-%20Type%3A%20%5BCustom%20Features%20%2F%20Private%20Deployment%20%2F%20White-Label%5D%0A-%20Expected%20users%20or%20scale%3A%0A-%20Target%20timeline%3A%0A%0ABest%20regards%2C%0A"
+                  className="px-6 py-3 bg-(--color-primary) text-white text-sm rounded-xl font-medium hover:opacity-90 transition-all shadow-lg shadow-orange-500/20 active:scale-95 flex items-center gap-2"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  Send Inquiry
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="px-5 py-3 border border-stone-300 dark:border-stone-700 hover:border-orange-500/40 text-sm rounded-xl font-medium hover:bg-stone-100/50 dark:hover:bg-stone-800/50 transition-all active:scale-95 flex items-center gap-2 cursor-pointer"
+                >
+                  {copied ? (
+                    <>
+                      <svg
+                        className="w-4 h-4 text-green-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2.5}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="text-green-500 font-medium">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-4 h-4 opacity-70"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span>Copy Email</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Open Source / Footer */}
         <section id="open-source" className="text-center mb-16">
