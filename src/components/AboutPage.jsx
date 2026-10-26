@@ -284,8 +284,15 @@ const AboutPage = () => {
           </div>
         </section>
 
-        <footer className="text-center text-sm opacity-40 pb-8">
-          &copy; {new Date().getFullYear()} SwiftShare.in. All rights reserved.
+        <footer className="text-center text-sm opacity-50 pb-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <span>&copy; {new Date().getFullYear()} SwiftShare.in. All rights reserved.</span>
+          <span className="hidden sm:inline opacity-40">&bull;</span>
+          <Link
+            to="/moreinfo/privacy"
+            className="hover:text-(--color-primary) hover:opacity-100 transition-colors underline decoration-dotted"
+          >
+            Privacy Policy
+          </Link>
         </footer>
       </div>
     </div>

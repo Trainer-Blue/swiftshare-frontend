@@ -26,4 +26,11 @@
     <priority>0.5</priority>
   </url>
 
+  <url>
+    <loc>https://swiftshare.in/moreinfo/privacy</loc>
+    <lastmod>2026-10-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
 </urlset>

@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./components/home";
 import AboutPage from "./components/AboutPage";
 import ServerHealth from "./components/ServerHealth";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 import EditorPage from "./components/editor-page";
 import NotFoundPage from "./components/NotFoundPage";
 import { ThemeProvider } from "./providers/ThemeProvider";
@@ -21,6 +22,8 @@ const App = () => {
           {/* Additional informational pages */}
           <Route path="/moreinfo/about" element={<AboutPage />} />
           <Route path="/moreinfo/server-health" element={<ServerHealth />} />
+          <Route path="/moreinfo/privacy" element={<PrivacyPolicy />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
 
           {/* Main editor route with dynamic room ID */}
           <Route path="/:roomId" element={<EditorPage />} />

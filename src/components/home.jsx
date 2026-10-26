@@ -97,6 +97,24 @@ function HomePage() {
             </button>
           </form>
         </div>
+
+        <div className="mt-8 pt-4 border-t border-(--color-border-light) dark:border-(--color-border-dark) flex items-center justify-center gap-4 text-xs opacity-50">
+          <button
+            type="button"
+            onClick={() => navigate("/moreinfo/about")}
+            className="hover:text-(--color-primary) hover:opacity-100 transition-colors cursor-pointer"
+          >
+            About
+          </button>
+          <span>&bull;</span>
+          <button
+            type="button"
+            onClick={() => navigate("/moreinfo/privacy")}
+            className="hover:text-(--color-primary) hover:opacity-100 transition-colors cursor-pointer"
+          >
+            Privacy Policy
+          </button>
+        </div>
       </div>
     </div>
   );
